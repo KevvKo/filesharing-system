@@ -12,14 +12,14 @@ const client = new MongoClient(uri, {
 let connection;
 
 module.exports = {
-  connectToServer: function (callback) {
+  connect: function (callback) {
     client.connect(function (err, db) {
       if (err || !db) {
         return callback(err);
       }
 
       connection = db.db("filesharing");
-      console.log("Successfully connected to MongoDB.");
+      console.log("database connected");
 
       return callback();
     });
