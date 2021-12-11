@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var path = require('path');
+const express = require('express');
+const router = express.Router();
+const path = require('path');
 
 /* GET registration page. */
 router.get('/', function(req, res, next) {
