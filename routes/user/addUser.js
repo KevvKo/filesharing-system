@@ -1,23 +1,27 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const db = require('../../db/connection').getDb();
+const db = require('../../db/connection');
 const saltRounds = 10;
-const examplePassword="1111";
 
 
-router.route("/routes/user/addUser").post(function (req,res) {
-    
+router.route("/").post(function (req,res) {
+
+    const {
+        email,
+        username,
+        password
+    } = req.body
+
     bcrypt.genSalt(saltRounds, function(err, salt) {
-        bcrypt.hash(examplePassword, salt, function(err, hash) {
+        bcrypt.hash(password, salt, function(err, hash) {
 
             const userDocument = {
-                user: "abc",
-                name: "xyz",
+                name: username,
+                email: email,
                 password: hash
             };
-
-            db
+            db.getDb()
             .collection("user")
             .insertOne(userDocument, function (err, result) {
                 if (err) {
@@ -26,7 +30,12 @@ router.route("/routes/user/addUser").post(function (req,res) {
                   console.log(`Added a new match with id ${result.insertedId}`);
                   res.status(204).send();
                 }
-            });
+            })
+            // .then( result => {
+            //     result.redirect('/registration')
+            // });
         });
     });
 });
+
+module.exports = router;
