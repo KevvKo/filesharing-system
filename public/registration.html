@@ -3,7 +3,22 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
-  <body>
-    <h1 class="">Registration</h1>
+  <body class="p-3 flex h-full justify-center items-start">
+    <form class="p-3 flex justify-center flex-col m-auto border-solid border-2 border-gray-300 rounded" method="post">
+      <h3 class="font-bold mb-3">Sign up</h3>
+      <div class="mb-4">
+        <label for="password" class="w-24 inline-block">Email:</label>
+        <input name="email" type="email" class="border-solid border-2 border-gray-300 rounded bg-gray-100" required>
+      </div>
+      <div class="mb-4">
+        <label for="username" class="w-24 inline-block">Username:</label>
+        <input name="username" type="text" class="border-solid border-2 border-gray-300 rounded bg-gray-100" required>
+      </div>
+      <div class="mb-4">
+        <label for="password" class="w-24 inline-block">Password:</label>
+        <input name="password" type="password" class="border-solid border-2 border-gray-300 rounded bg-gray-100" required>
+      </div>
+        <button class="self-end rounded border-solid border-2 border-emerald-400 p-1 bg-emerald-400 font-medium" type="submit">sign up</button>
+    </form>
   </body>
 </html>
