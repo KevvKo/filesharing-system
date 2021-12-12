@@ -6,7 +6,7 @@ router.post( '/deleteUser', function (req,res) {
 
     const {
         username,
-    } = req.body
+    } = req.body;
 
     const userDocument = {
         name: username,
@@ -18,9 +18,9 @@ router.post( '/deleteUser', function (req,res) {
         if (err) {
             res.status(400).send("Error deleting the user!");
         } else {
-            console.log("delete user was sucessful")
+            console.log("delete user was sucessful");
         }
-    })
+    });
 });
 
 module.exports = router;

@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { DB_URI } = process.env
+const { DB_URI } = process.env;
 
 const { MongoClient } = require('mongodb');
 const uri = DB_URI;

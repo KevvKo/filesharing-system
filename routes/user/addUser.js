@@ -11,7 +11,7 @@ router.post( '/addUser', function (req,res) {
         email,
         username,
         password
-    } = req.body
+    } = req.body;
 
         bcrypt.genSalt(saltRounds, function(err, salt) {
         bcrypt.hash(password, salt, function(err, hash) {
@@ -31,10 +31,10 @@ router.post( '/addUser', function (req,res) {
                   console.log(`Added a new match with id ${result.insertedId}`);
                   res.status(204).send();
                 }
-            })
+            });
         });
     });
-    res.redirect('/login')
+    res.redirect('/login');
 });
 
 module.exports = router;

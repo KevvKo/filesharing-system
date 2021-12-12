@@ -6,7 +6,7 @@ router.get( '/getUser', function (req,res) {
 
     const {
         username,
-    } = req.body
+    } = req.body;
 
     const userDocument = {
         name: username,
@@ -18,9 +18,9 @@ router.get( '/getUser', function (req,res) {
         if (err) {
             res.status(400).send("Error inserting matches!");
         } else {
-            res.json(result)
+            res.json(result);
         }
-    })
+    });
 });
 
 module.exports = router;

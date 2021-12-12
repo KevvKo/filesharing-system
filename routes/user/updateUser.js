@@ -4,7 +4,7 @@ const db = require('../../db/connection');
 
 router.get( '/updateUser', function (req,res) {
 
-    const userDocument = req.body
+    const userDocument = req.body;
 
     db.getDb()
     .collection("user")
@@ -14,7 +14,7 @@ router.get( '/updateUser', function (req,res) {
         } else {
             res.send('user updated');
         }
-    })
+    });
 });
 
 module.exports = router;
