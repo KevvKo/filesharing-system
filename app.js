@@ -20,6 +20,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/registration', registrationRouter);
-app.use('/user/addUser', addUserRouter);
+app.use('/user', addUserRouter);
 
 module.exports = app;
