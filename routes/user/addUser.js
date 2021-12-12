@@ -5,7 +5,7 @@ const db = require('../../db/connection');
 const saltRounds = 10;
 
 
-router.post( '/addUser', async function (req,res) {
+router.post( '/addUser', function (req,res) {
 
     const {
         email,
@@ -13,8 +13,8 @@ router.post( '/addUser', async function (req,res) {
         password
     } = req.body
 
-    bcrypt.genSalt(saltRounds, async function(err, salt) {
-        bcrypt.hash(password, salt, async function(err, hash) {
+        bcrypt.genSalt(saltRounds, function(err, salt) {
+        bcrypt.hash(password, salt, function(err, hash) {
 
             const userDocument = {
                 name: username,
@@ -34,6 +34,7 @@ router.post( '/addUser', async function (req,res) {
             })
         });
     });
+    res.redirect('/login')
 });
 
 module.exports = router;
