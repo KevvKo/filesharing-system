@@ -12,7 +12,6 @@
     "rules": {
         "semi": ["warn", "always"],
         "semi-style": ["error", "last"],
-        "computed-property-spacing": ["warn", "always"],
         "array-bracket-spacing": ["warn", "always"],
         "object-curly-spacing": ["warn", "always"]
     }
