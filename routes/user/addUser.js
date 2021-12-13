@@ -2,8 +2,10 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const db = require('../../db/connection');
-const saltRounds = 10;
+require('dotenv').config();
 
+const { SALT_ROUNDS } = process.env;
+const { generateAccessToken } = require('../../scripts/authentication');
 
 router.post( '/addUser', function (req,res) {
 
@@ -13,7 +15,7 @@ router.post( '/addUser', function (req,res) {
         password
     } = req.body;
 
-        bcrypt.genSalt(saltRounds, function(err, salt) {
+    bcrypt.genSalt(SALT_ROUNDS, function(err, salt) {
         bcrypt.hash(password, salt, function(err, hash) {
 
             const userDocument = {
@@ -29,12 +31,13 @@ router.post( '/addUser', function (req,res) {
                   res.status(400).send("Error inserting matches!");
                 } else {
                   console.log(`Added a new match with id ${result.insertedId}`);
-                  res.status(204).send();
+
+                  const token = generateAccessToken( username );
+                  res.json(token);
                 }
             });
         });
     });
-    res.redirect('/login');
 });
 
 module.exports = router;
