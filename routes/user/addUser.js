@@ -14,10 +14,9 @@ router.post( '/addUser', function (req,res) {
         username,
         password
     } = req.body;
-
-    bcrypt.genSalt(SALT_ROUNDS, function(err, salt) {
+    
+    bcrypt.genSalt( parseInt(SALT_ROUNDS), function(err, salt) {
         bcrypt.hash(password, salt, function(err, hash) {
-
             const userDocument = {
                 name: username,
                 email: email,
@@ -28,12 +27,14 @@ router.post( '/addUser', function (req,res) {
             .collection("user")
             .insertOne(userDocument, function (err, result) {
                 if (err) {
+                    console.log(err)
                   res.status(400).send("Error inserting matches!");
                 } else {
                   console.log(`Added a new match with id ${result.insertedId}`);
 
                   const token = generateAccessToken( username );
-                  res.json(token);
+                //   res.json(token);
+                res.sendStatus(200)
                 }
             });
         });
