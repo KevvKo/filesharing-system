@@ -4,7 +4,7 @@
   </head>
 
   <body class="p-3 flex h-full justify-center items-start">
-    <form action="/user/addUser" method="post" class="p-3 flex justify-center flex-col m-auto border-solid border-2 border-gray-300 rounded">
+    <form class="p-3 flex justify-center flex-col m-auto border-solid border-2 border-gray-300 rounded">
       <h3 class="font-bold mb-3">Sign up</h3>
       <div class="mb-4">
         <label for="password" class="w-24 inline-block">Email:</label>
@@ -19,29 +19,28 @@
         <input name="password" type="password" class="border-solid border-2 border-gray-300 rounded bg-gray-100" required>
       </div>
       <a class="underline text-blue-600 text-xs" href="http://localhost:3000/login">Already registered?</a>
-      <button class="self-end rounded border-solid border-2 border-emerald-400 p-1 bg-emerald-400 font-medium" type="submit">sign up</button>
+      <button class="self-end rounded border-solid border-2 border-emerald-400 p-1 bg-emerald-400 font-medium">sign up</button>
     </form>
   </body>
   <script>
-  //   document.querySelector('form')
-  //     .addEventListener('submit', event => {
-  //       event.preventDefault();
+    document.querySelector('form')
+      .addEventListener('submit', event => {
+        event.preventDefault();
 
-  //       const { email, username, password } = event.target;
-  //       const data = {
-  //         email: email.value,
-  //         username: username.value,
-  //         password: password.value
-  //       }
+        const { email, username, password } = event.target;
+        const data = {
+          email: email.value,
+          username: username.value,
+          password: password.value
+        }
 
-  //       fetch('http://localhost:3000/user/addUser', {
-  //         method: 'POST',
-  //         headers: {
-  //   'Content-Type': 'application/json',
-  // },
-  //         body: JSON.stringify(data)
-  //       })
-
-  //     });
+        fetch('http://localhost:3000/user/addUser', {
+          method: 'POST',
+          headers: {
+          'Content-Type': 'application/json',
+        },
+          body: JSON.stringify(data)
+        })
+      });
   </script>
 </html>
