@@ -4,17 +4,17 @@ require('dotenv').config();
 const { JWT_SECRET } = process.env;
 
 /**
- * 
+ * @function
  * @param {String} username 
  * @returns 
  */
 function generateAccessToken( username ) {
-    return jwt.sign(username, JWT_SECRET, { expireIn: '1800s' });
+    return jwt.sign({ username }, JWT_SECRET, { expiresIn: 60 * 60 });
 }
 
 
 /**
- * 
+ * @function 
  * @param {*} req 
  * @param {*} res 
  * @param {*} next 

@@ -30,7 +30,7 @@ router.post( '/addUser', function (req,res) {
                 } else {
                   console.log(`Added a new match with id ${result.insertedId}`);
                   const token = generateAccessToken( username );
-                //   res.json(token);
+                  res.json(token);
                 }
             });
         });
