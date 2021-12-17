@@ -3,7 +3,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
-  <body>
-    <h1 class="">Filesharing</h1>
+  <body class="p-2">
+    <header class="flex">
+      <h1 class="">Filesharing</h1>
+      <button class="ml-auto bg-red-700 text-white rounded p-1">Sign out</button>
+    </header>
   </body>
+
+  <script>
+    function singOut(){
+      document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      window.location.href='http://localhost:3000/login'
+    }
+
+    document.addEventListener('click', signOut);
+  </script>
 </html>

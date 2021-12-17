@@ -44,8 +44,7 @@
           .then(response => response.json())
           .then(data => {
             document.cookie = `token=${data}`
-            window.location.href = 'http://localhost:3000'
-            
+            window.location.href = 'http://localhost:3000'    
           });
       });
   </script>
