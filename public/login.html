@@ -7,8 +7,8 @@
     <form class="p-3 flex justify-center flex-col m-auto border-solid border-2 border-gray-300 rounded" method="post">
       <h3 class="font-bold mb-3">Login</h3>
       <div class="mb-4">
-        <label for="password" class="w-24 inline-block">Email:</label>
-        <input name="email" type="email" class="border-solid border-2 border-gray-300 rounded bg-gray-100" required>
+        <label for="password" class="w-24 inline-block">Username:</label>
+        <input name="username" type="username" class="border-solid border-2 border-gray-300 rounded bg-gray-100" required>
       </div>
       <div class="mb-4">
         <label for="password" class="w-24 inline-block">Password:</label>
@@ -18,4 +18,29 @@
       <button class="self-end rounded border-solid border-2 border-emerald-400 p-1 bg-emerald-400 font-medium" type="submit">sign in</button>
     </form>
   </body>
+  <script>
+        document.querySelector('form')
+      .addEventListener('submit', event => {
+        event.preventDefault();
+
+        const { username, password } = event.target;
+        const data = {
+          username: username.value,
+          password: password.value
+        }
+
+        fetch('http://localhost:3000/authentication/signin', {
+          method: 'POST',
+          headers: {
+          'Content-Type': 'application/json',
+        },
+          body: JSON.stringify(data)
+        })  
+          .then(response => response.json())
+          .then(data => {
+            document.cookie = `token=${data}`
+            window.location.href = 'http://localhost:3000'    
+          });
+      });
+  </script>
 </html>

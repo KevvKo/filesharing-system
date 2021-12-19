@@ -1,5 +1,4 @@
 var express = require('express');
-var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const bodyParser= require('body-parser');
@@ -11,6 +10,7 @@ var addUser = require('./routes/user/addUser');
 var getUser = require('./routes/user/addUser');
 var updateUser = require('./routes/user/addUser');
 var deleteUser = require('./routes/user/addUser');
+var signin = require('./routes/authentication/signIn');
 
 var app = express();
 
@@ -30,5 +30,6 @@ app.use('/user', addUser);
 app.use('/user', getUser);
 app.use('/user', updateUser);
 app.use('/user', deleteUser);
+app.use('/authentication', signin);
 
 module.exports = app;
