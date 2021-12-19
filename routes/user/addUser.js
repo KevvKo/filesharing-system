@@ -15,24 +15,22 @@ router.post( '/addUser', function (req,res) {
         password
     } = req.body;
 
-    bcrypt.genSalt( parseInt(SALT_ROUNDS), function(err, salt) {
-        bcrypt.hash(password, salt, function(err, hash) {
-            const userDocument = {
-                name: username,
-                email: email,
-                password: hash
-            };
-            db.getDb()
-            .collection("user")
-            .insertOne(userDocument, function (err, result) {
-                if (err) {
-                  res.status(400).send("Error inserting matches!");
-                } else {
-                  console.log(`Added a new match with id ${result.insertedId}`);
-                  const token = generateAccessToken( username );
-                  res.json(token);
-                }
-            });
+    bcrypt.hash(password, parseInt(SALT_ROUNDS), function(err, hash) {
+        const userDocument = {
+            name: username,
+            email: email,
+            password: hash
+        };
+        db.getDb()
+        .collection("user")
+        .insertOne(userDocument, function (err, result) {
+            if (err) {
+                res.status(400).send("Error inserting matches!");
+            } else {
+                console.log(`Added a new match with id ${result.insertedId}`);
+                const token = generateAccessToken( username );
+                res.json(token);
+            }
         });
     });
 });

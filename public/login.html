@@ -19,28 +19,29 @@
     </form>
   </body>
   <script>
-        document.querySelector('form')
-      .addEventListener('submit', event => {
-        event.preventDefault();
+        document
+          .querySelector('form')
+          .addEventListener('submit', event => {
+            event.preventDefault();
 
-        const { username, password } = event.target;
-        const data = {
-          username: username.value,
-          password: password.value
-        }
+            const { username, password } = event.target;
+            const data = {
+              username: username.value,
+              plainPassword: password.value
+            }
 
-        fetch('http://localhost:3000/authentication/signin', {
-          method: 'POST',
-          headers: {
-          'Content-Type': 'application/json',
-        },
-          body: JSON.stringify(data)
-        })  
-          .then(response => response.json())
-          .then(data => {
-            document.cookie = `token=${data}`
-            window.location.href = 'http://localhost:3000'    
+            fetch('http://localhost:3000/authentication/signin', {
+              method: 'POST',
+              headers: {
+              'Content-Type': 'application/json',
+            },
+              body: JSON.stringify(data)
+            })  
+              .then(response => response.json())
+              .then(data => {
+                document.cookie = `token=${data}`
+                window.location.href = 'http://localhost:3000'    
+              });
           });
-      });
   </script>
 </html>
