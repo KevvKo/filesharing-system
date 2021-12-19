@@ -21,8 +21,9 @@ function generateAccessToken( username ) {
  * @returns 
  */
 function authenticateToken(req, res, next){
-    const authHeader = req.headers['authorization'];
-    const token = authenticateToken && authHeader.split(' ')[1];
+    // const authHeader = req.headers['authorization'];
+    const { token } = req.cookies;
+    // const token = authenticateToken && authHeader.split(' ')[1];
 
     if(token === null) return res.sendStatus(401);
 
