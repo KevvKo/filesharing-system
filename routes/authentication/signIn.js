@@ -29,8 +29,6 @@ router.post( '/signin', function (req,res) {
             } = result;
 
             bcrypt.compare(plainPassword, password, function(err, result) {
-                console.log(result);
-
                 if(result){
                     const token = generateAccessToken( username );
                     res.json(token);
