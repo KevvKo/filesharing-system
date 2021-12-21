@@ -4,11 +4,19 @@
   </head>
 
   <body class="">
-    <header class="flex items-center shadow-lg p-3">
-      <h1 class="">Filesharing</h1>
-      <button class="ml-auto bg-red-700 text-white rounded p-1">Sign out</button>
-      <img src="./assets/images/dots-vertical.svg" />
+    <header class="flex items-center bg-gray-100 shadow-lg p-3">
+      <h1 class="font-medium text-gray-700">Filesharing</h1>
+      <div class="dot-menu ml-auto rounded-full hover:bg-gray-200 transition duration-150 cursor-pointer p-1">
+        <img class="h-6" src="./assets/images/dots-vertical.svg" />
+      </div>
     </header>
+    <div class="relative px-3 pb-3 rounded-b-md">
+      <div class="absolute right-0 top-0 mr-3 menu hidden shadow-lg rounded-b-md">
+        <ul class="bg-gray-100">
+          <li class="sign-out text-gray-700 p-2 hover:bg-gray-200 transition duration-150 cursor-pointer rounded-b-md">Sign out</li>
+        </ul>
+      </div>
+    </div>
   </body>
 
   <script>
@@ -17,6 +25,18 @@
       window.location.href='http://localhost:3000/login'
     }
 
-    document.querySelector('button') .addEventListener('click', signOut);
+    function toggleMenu(e){
+      const menu = document.querySelector('.menu')
+
+      if(menu.classList.contains('hidden')){
+        menu.classList.remove('hidden')
+        return
+      }
+      
+      menu.classList.add('hidden')
+    }
+    
+    document.querySelector('.sign-out').addEventListener('click', signOut);
+    document.querySelector('.dot-menu').addEventListener('click', toggleMenu);
   </script>
 </html>
