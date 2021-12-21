@@ -19,7 +19,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/static', express.static(path.join(__dirname, 'assets')));
+
+var options = {
+    index: false
+};
+app.use( express.static(path.join(__dirname, 'public'), options));
 // Routes
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
