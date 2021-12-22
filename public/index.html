@@ -4,6 +4,7 @@
   </head>
 
   <body class="">
+
     <header class="flex items-center bg-gray-100 shadow-lg p-3">
       <h1 class="font-medium text-gray-700">Filesharing</h1>
       <div class="dot-menu ml-auto rounded-full hover:bg-gray-200 transition duration-150 cursor-pointer p-1">
@@ -22,15 +23,21 @@
         <h1 class="font-extrabold text-gray-700">Files</h1>
         <div class="toolbar flex">
           <p class="inline-block">Select folder or file to see options</p>
-          <button class="ml-auto bg-emerald-400 hover:bg-emerald-500 transition duration-150 rounded py-1 px-2">Upload</button>
-          <button>
-            <img class="h-6" src="./assets/images/new-folder.svg" alt="new folder"/> 
+          <button class="ml-auto bg-emerald-400 hover:bg-emerald-500 transition duration-150 rounded mr-5 py-1 px-2">Upload</button>
+          <button class="mr-5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:stroke-emerald-500 transition duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            </svg>
           </button>
-          <button>
-            <img class="h-6" src="./assets/images/sort-ascending.svg" alt="sort ascending"/> 
+          <button class="filter sort-ascending mr-5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:stroke-emerald-500 transition duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+            </svg>
           </button>
-          <button>
-            <img class="h-6" src="./assets/images/sort-descending.svg" alt="sort descending"/> 
+          <button class="filter sort-descending">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:stroke-emerald-500 transition duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+            </svg>
           </button>
         </div>
       </div>
@@ -45,17 +52,30 @@
     }
 
     function toggleMenu(e){
-      const menu = document.querySelector('.menu')
 
-      if(menu.classList.contains('hidden')){
-        menu.classList.remove('hidden')
-        return
-      }
-      
-      menu.classList.add('hidden')
+      const menu = document.querySelector('.menu')
+      menu.classList.toggle('hidden')
     }
     
+    function toggleFilter(ascending=true){
+
+      const filterAscending = document.querySelector('.sort-ascending svg');
+      const filterDescending = document.querySelector('.sort-descending svg');
+
+      if(ascending){
+        filterAscending.classList.toggle('stroke-emerald-500');
+        filterDescending.classList.remove('stroke-emerald-500')
+        return
+      } 
+
+      filterDescending.classList.toggle('stroke-emerald-500')
+      filterAscending.classList.remove('stroke-emerald-500')
+    }
+
+    // add all events
     document.querySelector('.sign-out').addEventListener('click', signOut);
     document.querySelector('.dot-menu').addEventListener('click', toggleMenu);
+    document.querySelector('.sort-ascending').addEventListener('click', () => { toggleFilter() });
+    document.querySelector('.sort-descending').addEventListener('click', () => { toggleFilter(false) });
   </script>
 </html>
