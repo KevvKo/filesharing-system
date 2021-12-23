@@ -8,7 +8,9 @@
     <header class="flex items-center bg-gray-100 shadow-lg p-3">
       <h1 class="font-medium text-gray-700">Filesharing</h1>
       <div class="dot-menu ml-auto rounded-full hover:bg-gray-200 transition duration-150 cursor-pointer p-1">
-        <img class="h-6" src="./assets/images/dots-vertical.svg" />
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+        </svg>
       </div>
     </header>
     
@@ -23,7 +25,7 @@
         <h1 class="font-extrabold text-gray-700">Files</h1>
         <div class="toolbar flex">
           <p class="inline-block">Select folder or file to see options</p>
-          <button class="ml-auto bg-emerald-400 hover:bg-emerald-500 transition duration-150 rounded mr-5 py-1 px-2">Upload</button>
+          <button class="toggle-modal ml-auto bg-emerald-400 hover:bg-emerald-500 transition duration-150 rounded mr-5 py-1 px-2">Upload</button>
           <button class="mr-5">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:stroke-emerald-500 transition duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
@@ -42,6 +44,13 @@
         </div>
       </div>
 
+    </div>
+
+    <div class="upload-modal w-1/2 m-auto hidden">
+      <h3 class="font-medium text-gray-700 bg-gray-100">Upload Manager</h3>
+      <form>
+        <input type="file" />
+      </form>
     </div>
   </body>
 
@@ -72,10 +81,14 @@
       filterAscending.classList.remove('stroke-emerald-500')
     }
 
+    function toggleModal(){
+      document.querySelector('.upload-modal').classList.toggle('hidden');
+    }
     // add all events
     document.querySelector('.sign-out').addEventListener('click', signOut);
     document.querySelector('.dot-menu').addEventListener('click', toggleMenu);
     document.querySelector('.sort-ascending').addEventListener('click', () => { toggleFilter() });
     document.querySelector('.sort-descending').addEventListener('click', () => { toggleFilter(false) });
+    document.querySelector('.toggle-modal').addEventListener('click', toggleModal);
   </script>
 </html>

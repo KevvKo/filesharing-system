@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const { DB_URI } = process.env;
 
-const { MongoClient } = require('mongodb');
+const { MongoClient, GridFSBucket } = require('mongodb');
 const uri = DB_URI;
 const client = new MongoClient(uri, { 
     useNewUrlParser: true, 
@@ -10,6 +10,7 @@ const client = new MongoClient(uri, {
 });
 
 let connection;
+let bucket;
 
 module.exports = {
   connect: function (callback) {
@@ -17,15 +18,21 @@ module.exports = {
       if (err || !db) {
         return callback(err);
       }
-
       connection = db.db("filesharing");
       console.log("database connected");
+
+      bucket = new GridFSBucket( connection );
+      console.log("bucket initiated");
 
       return callback();
     });
   },
 
-  getDb: function () {
+  getDb: function() {
     return connection;
   },
-};
+
+  getBucket: function(){
+    return bucket;
+  }
+}

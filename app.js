@@ -10,6 +10,8 @@ var addUser = require('./routes/user/addUser');
 var getUser = require('./routes/user/addUser');
 var updateUser = require('./routes/user/addUser');
 var deleteUser = require('./routes/user/addUser');
+var uploadFile = require('./routes/user/addUser');
+var deleteFile = require('./routes/user/addUser');
 var signin = require('./routes/authentication/signIn');
 
 var app = express();
@@ -35,5 +37,6 @@ app.use('/user', getUser);
 app.use('/user', updateUser);
 app.use('/user', deleteUser);
 app.use('/authentication', signin);
-
+app.use('/file', uploadFile);
+app.use('/file', deleteFile);
 module.exports = app;
