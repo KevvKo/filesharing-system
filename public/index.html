@@ -45,12 +45,14 @@
       </div>
 
     </div>
-
-    <div class="upload-modal w-1/2 m-auto hidden">
-      <h3 class="font-medium text-gray-700 bg-gray-100">Upload Manager</h3>
-      <form>
-        <input type="file" />
-      </form>
+    <div class="modal hidden">
+      <div class="absolute z-20 w-1/2 left-1/2  top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <h3 class="font-medium text-gray-700 bg-gray-100">Upload Manager</h3>
+        <form>
+          <input type="file" />
+        </form>
+      </div>
+      <div class="z-10 absolute top-0 left-0 bg-slate-700 w-screen h-screen opacity-60"></div>
     </div>
   </body>
 
@@ -82,7 +84,8 @@
     }
 
     function toggleModal(){
-      document.querySelector('.upload-modal').classList.toggle('hidden');
+      document.querySelector('.modal').classList.toggle('hidden');
+      document.querySelector('.gray-out').classList.toggle('hidden');
     }
     // add all events
     document.querySelector('.sign-out').addEventListener('click', signOut);
