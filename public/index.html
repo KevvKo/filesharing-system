@@ -55,8 +55,8 @@
             </svg>
           </button>
         </div>
-        <form class="w-min m-auto h-5/6 flex flex-col justify-center">
-          <input type="file" placeholder="bitch" class="ml-3"/>
+        <form ref='file-upload' method="post" action="http://localhost:3000/file/uploadFile" enctype="multipart/form-data" class="w-min m-auto h-5/6 flex flex-col justify-center">
+          <input id="file-upload" name="upload" type="file" class="ml-3" required/>
           <div class="mt-3 flex mr-3">
             <button class="self-end inline bg-emerald-400 hover:bg-emerald-500 transition duration-150 rounded py-1 px-2 ml-auto" type="submit">submit</button>
           </div>
@@ -96,7 +96,8 @@
     function toggleModal(){
       document.querySelector('.modal').classList.toggle('hidden');
     }
-    // add all events
+
+    // add all default events
     document.querySelector('.sign-out').addEventListener('click', signOut);
     document.querySelector('.dot-menu').addEventListener('click', toggleMenu);
     document.querySelector('.sort-ascending').addEventListener('click', () => { toggleFilter() });

@@ -27,7 +27,7 @@ function authenticateToken(req, res, next){
     if(token === null) return res.sendStatus(401);
 
     jwt.verify(token, JWT_SECRET, (err, user) => {
-        console.log(err)
+    
         if(err) return res.redirect('http://localhost:3000/login');
 
         req.user = user;
