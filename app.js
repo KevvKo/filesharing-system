@@ -16,8 +16,9 @@ var deleteFile = require('./routes/file/delete');
 var signin = require('./routes/authentication/signIn');
 const multer = require("multer");
 const { GridFsStorage } = require("multer-gridfs-storage");
-const url = "mongodb+srv://KevvKo:Montera--93@cluster0.qqxvm.mongodb.net/filesharing?retryWrites=true&w=majority"
-
+const crypto = require('crypto');
+    require('dotenv').config();
+const { DB_URI } = process.env 
 var app = express();
 
 app.use(logger('dev'));
@@ -43,7 +44,23 @@ app.use('/user', updateUser);
 app.use('/user', deleteUser);
 app.use('/authentication', signin);
 
-const storage = new GridFsStorage({ url });
+const storage = new GridFsStorage({ 
+    url: DB_URI,
+    file: (req, file) => {
+        return new Promise((resolve, reject) => {
+            crypto.randomBytes(16, (err, buf) => {
+
+                if (err) {
+                    return reject(err);
+                }
+                const filename = buf.toString('hex') + path.extname(file.originalname);
+                const fileInfo = { filename: filename };
+                resolve(fileInfo);
+            });
+        });
+    }
+});
+
 const upload = multer({ storage });
 
 app.use('/file', uploadFile(upload));
