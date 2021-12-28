@@ -2,7 +2,6 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const bodyParser= require('body-parser');
-const fileUpload = require("express-fileupload");
 const cors = require('cors');     
 var path = require('path');
 var indexRouter = require('./routes/index');
@@ -15,11 +14,11 @@ var deleteUser = require('./routes/user/addUser');
 var uploadFile = require('./routes/file/upload');
 var deleteFile = require('./routes/file/delete');
 var signin = require('./routes/authentication/signIn');
+const multer = require("multer");
+const { GridFsStorage } = require("multer-gridfs-storage");
+const url = "mongodb+srv://KevvKo:Montera--93@cluster0.qqxvm.mongodb.net/filesharing?retryWrites=true&w=majority"
 
 var app = express();
-
-// enable fileupload
-app.use(fileUpload());
 
 app.use(logger('dev'));
 app.use(cors());
@@ -43,6 +42,11 @@ app.use('/user', getUser);
 app.use('/user', updateUser);
 app.use('/user', deleteUser);
 app.use('/authentication', signin);
-app.use('/file', uploadFile);
+
+const storage = new GridFsStorage({ url });
+const upload = multer({ storage });
+
+app.use('/file', uploadFile(upload));
 app.use('/file', deleteFile);
+
 module.exports = app;
