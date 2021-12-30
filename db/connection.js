@@ -18,6 +18,7 @@ module.exports = {
       if (err || !db) {
         return callback(err);
       }
+      
       connection = db.db("filesharing");
       console.log("database connected");
 

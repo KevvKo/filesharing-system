@@ -1,9 +1,13 @@
+require('dotenv').config();
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const bodyParser= require('body-parser');
 const cors = require('cors');     
 var path = require('path');
+const multer = require("multer");
+const { GridFsStorage } = require("multer-gridfs-storage");
+const crypto = require('crypto');
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var registrationRouter = require('./routes/registration');
@@ -13,12 +17,11 @@ var updateUser = require('./routes/user/addUser');
 var deleteUser = require('./routes/user/addUser');
 var uploadFile = require('./routes/file/upload');
 var deleteFile = require('./routes/file/delete');
+var getFiles = require('./routes/file/getFiles');
 var signin = require('./routes/authentication/signIn');
-const multer = require("multer");
-const { GridFsStorage } = require("multer-gridfs-storage");
-const crypto = require('crypto');
-    require('dotenv').config();
+
 const { DB_URI } = process.env 
+
 var app = express();
 
 app.use(logger('dev'));
@@ -64,6 +67,7 @@ const storage = new GridFsStorage({
 const upload = multer({ storage });
 
 app.use('/file', uploadFile(upload));
+app.use('/file', getFiles);
 app.use('/file', deleteFile);
 
 module.exports = app;
