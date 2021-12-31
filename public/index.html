@@ -17,7 +17,7 @@
     <div class="relative px-3 pb-3 rounded-b-md">
       <div class="absolute right-0 top-0 mr-3 menu hidden shadow-lg rounded-b-md">
         <ul class="bg-gray-100">
-          <li class="sign-out text-gray-700 p-2 hover:bg-gray-200 transition duration-150 cursor-pointer rounded-b-md" onclick="signOut()">Sign out</li>
+          <li class="sign-out text-gray-700 p-2 transition duration-150 cursor-pointer rounded-b-md hover:text-red-500 font-normal" onclick="signOut()">Sign out</li>
         </ul>
       </div>
 
@@ -91,16 +91,16 @@
       data.forEach(file => {
         list.insertAdjacentHTML(
             'beforeend', 
-            `<tr>
+            `<tr id="${file._id}">
                 <td class="border-b border-gray-100 dark:border-gray-700 p-4 pl-8 text-gray-500 text-gray-800">${file.filename}</td>
                 <td class="border-b border-gray-100 dark:border-gray-700 p-4 pl-8 text-gray-500 text-gray-800">${file.chunkSize}</td>
                 <td class="border-b border-gray-100 dark:border-gray-700 p-4 pl-8 text-gray-500 text-gray-800">${file.contentType}</td>
                 <td class="border-y border-gray-100 dark:border-gray-700">
-                  <div class="inline-block rounded-full hover:bg-gray-200 transition duration-150 cursor-pointer p-1">
+                  <button class="relative inline-block rounded-full hover:bg-gray-200 transition duration-150 p-1" onclick="toggleEditMenu(this)">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
                     </svg>
-                  </div>
+                  </button>
                 </td>
               </tr>`)
       });
@@ -108,6 +108,14 @@
     function signOut(){
       document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       window.location.href='http://localhost:3000/login'
+    }
+
+    function renameFile(){
+
+    }
+
+    function deleteFile(){
+
     }
 
     function toggleMenu(e){
@@ -184,5 +192,25 @@
     function toggleModal(){
       document.querySelector('.modal').classList.toggle('hidden');
     } 
+
+    function toggleEditMenu(e){
+
+      const node = document.getElementById('edit-menu');
+
+      if( node ){
+        node.parentNode.removeChild(node);
+        return
+      }
+
+      e.insertAdjacentHTML('afterend', `
+      <div id="edit-menu" class="absolute z-10 px-3 pb-3 -m-1 rounded-b-md">
+        <div class="right-0 top-0 mr-3 menu shadow-lg rounded-b-md">
+        <ul class="bg-gray-100">
+          <li class="sign-out text-gray-700 font-normal p-2 hover:text-emerald-500 transition duration-150 cursor-pointer rounded-b-md" onclick="renameFile">Rename</li>
+          <li class="sign-out text-gray-700 p-2 transition duration-150 hover:text-red-500 cursor-pointer rounded-b-md" onclick="deleteFile">Delete</li>
+        </ul>
+      </div>
+      `)
+    }
   </script>
 </html>
