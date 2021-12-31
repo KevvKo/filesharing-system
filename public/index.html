@@ -45,9 +45,9 @@
         <table class="border-collapse table-auto w-full text-sm mt-10">
           <thead class="">
             <tr>
-              <th class="text-left border-b dark:border-gray-600 font-medium p-4 pl-8 pt-0 pb-3 text-gray-400 dark:text-gray-200">name</th>
-              <th class="border-b dark:border-gray-600 font-medium p-4 pl-8 pt-0 pb-3 text-gray-400 dark:text-gray-200 text-left">size</th>
-              <th class="border-b dark:border-gray-600 font-medium p-4 pl-8 pt-0 pb-3 text-gray-400 dark:text-gray-200 text-left">type</th>
+              <th class="text-left border-b dark:border-gray-600 font-medium p-4 pl-8 pt-0 pb-3 text-gray-800">name</th>
+              <th class="border-b dark:border-gray-600 font-medium p-4 pl-8 pt-0 pb-3 text-gray-800 text-left">size</th>
+              <th class="border-b dark:border-gray-600 font-medium p-4 pl-8 pt-0 pb-3 text-gray-800 text-left">type</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -92,11 +92,11 @@
         list.insertAdjacentHTML(
             'beforeend', 
             `<tr>
-                <td class="border-b border-gray-100 dark:border-gray-700 p-4 pl-8 text-gray-500 dark:text-gray-400">${file.filename}</td>
-                <td class="border-b border-gray-100 dark:border-gray-700 p-4 pl-8 text-gray-500 dark:text-gray-400">${file.chunkSize}</td>
-                <td class="border-b border-gray-100 dark:border-gray-700 p-4 pl-8 text-gray-500 dark:text-gray-400">${file.contentType}</td>
-                <td>
-                  <div class="ml-auto inline-block rounded-full hover:bg-gray-200 transition duration-150 cursor-pointer p-1">
+                <td class="border-b border-gray-100 dark:border-gray-700 p-4 pl-8 text-gray-500 text-gray-800">${file.filename}</td>
+                <td class="border-b border-gray-100 dark:border-gray-700 p-4 pl-8 text-gray-500 text-gray-800">${file.chunkSize}</td>
+                <td class="border-b border-gray-100 dark:border-gray-700 p-4 pl-8 text-gray-500 text-gray-800">${file.contentType}</td>
+                <td class="border-y border-gray-100 dark:border-gray-700">
+                  <div class="inline-block rounded-full hover:bg-gray-200 transition duration-150 cursor-pointer p-1">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
                     </svg>
