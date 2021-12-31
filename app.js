@@ -16,7 +16,7 @@ var getUser = require('./routes/user/addUser');
 var updateUser = require('./routes/user/addUser');
 var deleteUser = require('./routes/user/addUser');
 var uploadFile = require('./routes/file/upload');
-var deleteFile = require('./routes/file/delete');
+var deleteFile = require('./routes/file/deleteFile');
 var getFiles = require('./routes/file/getFiles');
 var signin = require('./routes/authentication/signIn');
 
