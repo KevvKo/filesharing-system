@@ -25,7 +25,7 @@
         <h1 class="font-extrabold text-gray-700">Files</h1>
         <div class="toolbar flex" title="create a new folder">
           <p class="inline-block">Select folder or file to see options</p>
-          <button class="toggle-modal ml-auto bg-emerald-400 hover:bg-emerald-500 transition duration-150 rounded mr-5 py-1 px-2" title="upload a file" onclick="toggleModal()">Upload</button>
+          <button class="toggle-modal ml-auto bg-emerald-400 hover:bg-emerald-500 transition duration-150 rounded mr-5 py-1 px-2" title="upload a file" onclick="toggleModal('.modal-upload')">Upload</button>
           <button class="mr-5">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:stroke-emerald-500 transition duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
@@ -55,12 +55,13 @@
       </div>
 
     </div>
-    <div class="modal hidden">
+    <!-- Modal to upload -->
+    <div class="modal-upload hidden">
       <div class="absolute h-64 bg-white z-20 w-1/2 left-1/2  top-1/2 -translate-x-1/2 -translate-y-1/2 rounded">
         <div class="flex bg-gray-100 p-2 rounded">
           <h3 class="font-medium text-gray-700 ">Upload Manager</h3>
           <button class=" ml-auto">
-            <svg xmlns="http://www.w3.org/2000/svg" onclick="toggleModal()" class="h-6 w-6 hover:stroke-emerald-500 transition duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" onclick="toggleModal('.modal-upload')" class="h-6 w-6 hover:stroke-emerald-500 transition duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -72,7 +73,25 @@
           </div>
         </form>
       </div>
-      <div class="gray-out z-10 absolute top-0 left-0 bg-slate-700 w-screen h-screen opacity-60" onclick="toggleModal()"></div>
+      <div class="gray-out z-10 absolute top-0 left-0 bg-slate-700 w-screen h-screen opacity-60" onclick="toggleModal('.modal-upload')"></div>
+    </div>
+    <!--  modal to renamefile -->
+    <div class="modal-rename hidden">
+      <div class="absolute bg-white z-20 w-1/2 left-1/2  top-1/2 -translate-x-1/2 -translate-y-1/2 rounded">
+        <div class="flex bg-gray-100 p-2 rounded">
+          <h3 class="font-medium text-gray-700 ">Rename File</h3>
+          <button class=" ml-auto">
+            <svg xmlns="http://www.w3.org/2000/svg" onclick="toggleModal('.modal-rename')" class="h-6 w-6 hover:stroke-emerald-500 transition duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <form ref='file-upload' method="post" action="http://localhost:3000/file/uploadFile" enctype="multipart/form-data" class="w-min m-auto my-10 flex items-start justify-center">
+          <input id="file-rename" name="file" class="border-solid border-2 border-gray-300 rounded bg-gray-100 mr-4" required/>
+          <button class="self-end inline bg-emerald-400 hover:bg-emerald-500 transition duration-150 rounded py-1 px-2 ml-auto" type="submit">submit</button>
+        </form>
+      </div>
+      <div class="gray-out z-10 absolute top-0 left-0 bg-slate-700 w-screen h-screen opacity-60" onclick="toggleModal('.modal-rename')"></div>
     </div>
   </body>
 
@@ -200,8 +219,8 @@
       }
     }
 
-    function toggleModal(){
-      document.querySelector('.modal').classList.toggle('hidden');
+    function toggleModal(name){
+      document.querySelector(name).classList.toggle('hidden');
     } 
 
     function toggleEditMenu(e, id){
@@ -216,7 +235,7 @@
       <div id="edit-menu" class="absolute z-10 px-3 pb-3 -m-1 rounded-b-md">
         <div class="right-0 top-0 mr-3 menu shadow-lg rounded-b-md">
         <ul class="bg-gray-100">
-          <li class="sign-out text-gray-700 font-normal p-2 hover:text-emerald-500 transition duration-150 cursor-pointer rounded-b-md" onclick="renameFile()">Rename</li>
+          <li class="sign-out text-gray-700 font-normal p-2 hover:text-emerald-500 transition duration-150 cursor-pointer rounded-b-md" onclick="toggleModal('.modal-rename')">Rename</li>
           <li class="sign-out text-gray-700 p-2 transition duration-150 hover:text-red-500 cursor-pointer rounded-b-md" onclick="deleteFile('${id}')">Delete</li>
         </ul>
       </div>
