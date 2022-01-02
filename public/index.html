@@ -77,16 +77,16 @@
     </div>
     <!--  modal to renamefile -->
     <div class="modal-rename hidden">
-      <div class="absolute bg-white z-20 w-1/2 left-1/2  top-1/2 -translate-x-1/2 -translate-y-1/2 rounded">
+      <div class="absolute bg-white z-20 w-1/3 left-1/2  top-1/2 -translate-x-1/2 -translate-y-1/2 rounded">
         <div class="flex bg-gray-100 p-2 rounded">
           <h3 class="font-medium text-gray-700 ">Rename File</h3>
-          <button class=" ml-auto">
+          <button class=" ml-auto" onclick="renameFile()">
             <svg xmlns="http://www.w3.org/2000/svg" onclick="toggleModal('.modal-rename')" class="h-6 w-6 hover:stroke-emerald-500 transition duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
-        <form ref='file-upload' method="post" action="http://localhost:3000/file/uploadFile" enctype="multipart/form-data" class="w-min m-auto my-10 flex items-start justify-center">
+        <form ref='file-upload' enctype="multipart/form-data" class="w-min m-auto my-10 flex items-start justify-center">
           <input id="file-rename" name="file" class="border-solid border-2 border-gray-300 rounded bg-gray-100 mr-4" required/>
           <button class="self-end inline bg-emerald-400 hover:bg-emerald-500 transition duration-150 rounded py-1 px-2 ml-auto" type="submit">submit</button>
         </form>
@@ -129,10 +129,29 @@
       window.location.href='http://localhost:3000/login'
     }
 
-    function renameFile(){
+    function renameFile(e){
+      e.preventDefault()
+      const { file } = e.target
+      const id = localStorage.getItem('id')
 
+      fetch('http://localhost:3000/file/renameFile', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({
+          id: id,
+          newName: file.value
+        })
+      })
+      .then( res => {
+        if(res.status === 200 ){
+          window.location.href='http://localhost:3000'
+        }
+      })
     }
-
+    document.querySelector('.modal-rename form').addEventListener('submit', renameFile)
+    
     function deleteFile(id){
       fetch('http://localhost:3000/file/deleteFile', {
         method: 'post',
@@ -219,8 +238,12 @@
       }
     }
 
-    function toggleModal(name){
+    function toggleModal(name, id){
       document.querySelector(name).classList.toggle('hidden');
+
+      if(id){
+        localStorage.setItem('id', id);
+      }
     } 
 
     function toggleEditMenu(e, id){
@@ -235,7 +258,7 @@
       <div id="edit-menu" class="absolute z-10 px-3 pb-3 -m-1 rounded-b-md">
         <div class="right-0 top-0 mr-3 menu shadow-lg rounded-b-md">
         <ul class="bg-gray-100">
-          <li class="sign-out text-gray-700 font-normal p-2 hover:text-emerald-500 transition duration-150 cursor-pointer rounded-b-md" onclick="toggleModal('.modal-rename')">Rename</li>
+          <li class="sign-out text-gray-700 font-normal p-2 hover:text-emerald-500 transition duration-150 cursor-pointer rounded-b-md" onclick="toggleModal('.modal-rename', '${id}')">Rename</li>
           <li class="sign-out text-gray-700 p-2 transition duration-150 hover:text-red-500 cursor-pointer rounded-b-md" onclick="deleteFile('${id}')">Delete</li>
         </ul>
       </div>

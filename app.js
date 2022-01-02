@@ -17,6 +17,7 @@ var updateUser = require('./routes/user/addUser');
 var deleteUser = require('./routes/user/addUser');
 var uploadFile = require('./routes/file/upload');
 var deleteFile = require('./routes/file/deleteFile');
+var renameFile = require('./routes/file/renameFile');
 var getFiles = require('./routes/file/getFiles');
 var signin = require('./routes/authentication/signIn');
 
@@ -69,5 +70,6 @@ const upload = multer({ storage });
 app.use('/file', uploadFile(upload));
 app.use('/file', getFiles);
 app.use('/file', deleteFile);
+app.use('/file', renameFile);
 
 module.exports = app;
