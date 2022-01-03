@@ -40,7 +40,10 @@
           'Content-Type': 'application/json',
         },
           body: JSON.stringify(data)
-        })  
+        })
+          .catch((error) => {
+            console.error(error)
+          })  
           .then(response => response.json())
           .then(data => {
             document.cookie = `token=${data}`

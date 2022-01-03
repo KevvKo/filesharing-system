@@ -21,7 +21,7 @@ var renameFile = require('./routes/file/renameFile');
 var getFiles = require('./routes/file/getFiles');
 var signin = require('./routes/authentication/signIn');
 
-const { DB_URI } = process.env 
+const { DB_URI } = process.env;
 
 var app = express();
 
