@@ -17,11 +17,10 @@ router.post( '/signin', function (req,res) {
         const userDocument = {
             name: username,
         };
-    
         db.getDb()
         .collection("user")
         .findOne(userDocument, function (err, result) {
-            if (err) {
+            if (err || !result) {
               res.status(401).json({ error: "Wrong username or password" });
             } else {
                 const {
@@ -30,10 +29,11 @@ router.post( '/signin', function (req,res) {
                 } = result;
     
                 bcrypt.compare(plainPassword, password, function(err, result) {
-                    if(err) res.status(409).send("Something went wrong");
+                    if(!result) { res.status(401).json({ error: "Wrong username or password" });
+                    }
                     if(result){
                         const token = generateAccessToken( username );
-                        res.json(token);
+                        res.status(200).json(token);
                     }
                 });
             }
