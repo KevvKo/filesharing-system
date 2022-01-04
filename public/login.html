@@ -17,7 +17,7 @@
       <a class="underline text-blue-600 text-xs" href="http://localhost:3000/registration">Not signed up?</a>
       <button class="self-end rounded border-solid border-2 border-emerald-400 p-1 bg-emerald-400 font-medium" type="submit">sign in</button>
 
-      <div class="absolute -bottom-14 left-1/2 -translate-x-1/2 bg-red-300 text-red-900 px-4 py-1 rounded">hello</div>
+      <div class="alert hidden whitespace-nowrap absolute -bottom-14 left-1/2 -translate-x-1/2 bg-red-300 text-red-900 px-4 py-1 rounded"></div>
 
     </form>
   </body>
@@ -40,21 +40,29 @@
             },
               body: JSON.stringify(data)
             })
-              .then(response => {
+              .then( response => {
+                // TODO check why the response is undefined for next then block
                 if(response.status === 401 ){
                   return response.json()
                   .then( err => {
-                    const { error } = err
+                    const { error } = err;
                     throw Error( error );
                   })
                 }
-                response.json()
-              } )
-              .then(data => {
-                document.cookie = `token=${data}`
-                window.location.href = 'http://localhost:3000'    
-              }).catch((error) => {
-                console.error(error)
+                response.json();
+              })
+              .then( data => {
+                if(data){
+                  document.cookie = `token=${data}`;
+                  window.location.href = 'http://localhost:3000';  
+                }
+              })
+              .catch( (error) => {
+
+                console.error(error);
+                const alert = document.querySelector('.alert');
+                alert.classList.remove('hidden');
+                alert.innerHTML = error;
               });
           });
   </script>

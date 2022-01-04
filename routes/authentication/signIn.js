@@ -29,11 +29,11 @@ router.post( '/signin', function (req,res) {
                 } = result;
     
                 bcrypt.compare(plainPassword, password, function(err, result) {
-                    if(!result  ) { res.status(401).json({ error: "Wrong username or password" });
+                    if(!result) { res.status(401).json({ error: "Wrong username or password" });
                     }
                     if(result){
-                        const token = generateAccessToken( username );
-                        res.status(200).json(token);
+                        const token = generateAccessToken( username );+
+                        res.json(token);
                     }
                 });
             }
