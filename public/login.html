@@ -41,7 +41,6 @@
               body: JSON.stringify(data)
             })
               .then( response => {
-                // TODO check why the response is undefined for next then block
                 if(response.status === 401 ){
                   return response.json()
                   .then( err => {

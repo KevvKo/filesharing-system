@@ -9,30 +9,37 @@ const { generateAccessToken } = require('../../scripts/authentication');
 
 router.post( '/addUser', function (req,res) {
 
-    const {
-        email,
-        username,
-        password
-    } = req.body;
+    try{
+        const {
+            email,
+            username,
+            password
+        } = req.body;
+    
+        bcrypt.hash(password, parseInt(SALT_ROUNDS), function(err, hash) {
 
-    bcrypt.hash(password, parseInt(SALT_ROUNDS), function(err, hash) {
-        const userDocument = {
-            name: username,
-            email: email,
-            password: hash
-        };
-        db.getDb()
-        .collection("user")
-        .insertOne(userDocument, function (err, result) {
-            if (err) {
-                res.status(400).send("Error inserting matches!");
-            } else {
-                console.log(`Added a new match with id ${result.insertedId}`);
-                const token = generateAccessToken( username );
-                res.json(token);
-            }
-        });
-    });
+            if(!hash) { res.status(401).json({ error: "Uups, something went wrong. Please try again" });
+        }
+            const userDocument = {
+                name: username,
+                email: email,
+                password: hash
+            };
+            db.getDb()
+            .collection("user")
+            .insertOne(userDocument, function (error, result) {
+                if (error || !result) {
+                    res.status(400).json({ error: "Uups, something went wrong. Please try again" });
+                } else {
+                    console.log(`Added a new match with id ${result.insertedId}`);
+                    const token = generateAccessToken( username );
+                    res.json(token);
+                }
+            });
+        });   
+    } catch {
+        res.status(400).json({ error: "Uups, something went wrong. Please try again" });
+    }
 });
 
 module.exports = router;
