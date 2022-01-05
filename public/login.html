@@ -49,8 +49,9 @@
                     throw Error( error );
                   })
                 }
-                response.json();
+                return response;
               })
+              .then( response => response.json())
               .then( data => {
                 if(data){
                   document.cookie = `token=${data}`;
@@ -58,7 +59,6 @@
                 }
               })
               .catch( (error) => {
-
                 console.error(error);
                 const alert = document.querySelector('.alert');
                 alert.classList.remove('hidden');
