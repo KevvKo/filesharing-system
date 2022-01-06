@@ -5,7 +5,7 @@
 
   <body class="p-3 flex h-full justify-center items-start">
     
-    <form class="p-3 flex justify-center flex-col m-auto border-solid border-2 border-gray-300 rounded">
+    <form class="relative p-3 flex justify-center flex-col m-auto border-solid border-2 border-gray-300 rounded">
       <h3 class="font-bold mb-3">Sign up</h3>
       <div class="mb-4">
         <label for="password" class="w-24 inline-block">Email:</label>
@@ -46,13 +46,14 @@
           body: JSON.stringify(data)
         })
           .then(response => {
-            if(response.status === 400 ){
+            if(response.status >= 400 ){
               return response.json()
               .then( err => {
                 const { error } = err;
                 throw Error( error );
               })
             }
+            return response
           })
           .then(response => response.json())
           .then(data => {
@@ -62,10 +63,10 @@
             }
           })          
           .catch((error) => {
-            console.error(error);
-                const alert = document.querySelector('.alert');
-                alert.classList.remove('hidden');
-                alert.innerHTML = error;
+              console.error(error);
+              const alert = document.querySelector('.alert');
+              alert.classList.remove('hidden');
+              alert.innerHTML = error;
           });
       });
   </script>
