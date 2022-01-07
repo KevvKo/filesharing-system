@@ -4,23 +4,27 @@ const db = require('../../db/connection');
 
 router.get( '/getUser', function (req,res) {
 
-    const {
-        username,
-    } = req.body;
-
-    const userDocument = {
-        name: username,
-    };
-
-    db.getDb()
-    .collection("user")
-    .findOne(userDocument, function (err, result) {
-        if (err) {
-            res.status(400).send("Error inserting matches!");
-        } else {
-            res.json(result);
-        }
-    });
+    try {
+        const {
+            username,
+        } = req.body;
+    
+        const userDocument = {
+            name: username,
+        };
+    
+        db.getDb()
+        .collection("user")
+        .findOne(userDocument, function (err, result) {
+            if (err || !result) {
+                res.status(400).json({error: "Deleteng the User was not possible." });
+            } else {
+                res.json(result);
+            }
+        });
+    } catch(e) {
+        res.json({ error: e.message });
+    }
 });
 
 module.exports = router;

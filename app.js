@@ -13,8 +13,6 @@ var loginRouter = require('./routes/login');
 var registrationRouter = require('./routes/registration');
 var addUser = require('./routes/user/addUser');
 var getUser = require('./routes/user/addUser');
-var updateUser = require('./routes/user/addUser');
-var deleteUser = require('./routes/user/addUser');
 var uploadFile = require('./routes/file/upload');
 var deleteFile = require('./routes/file/deleteFile');
 var renameFile = require('./routes/file/renameFile');
@@ -44,8 +42,6 @@ app.use('/registration', registrationRouter);
 // API endpoints
 app.use('/user', addUser);
 app.use('/user', getUser);
-app.use('/user', updateUser);
-app.use('/user', deleteUser);
 app.use('/authentication', signin);
 
 const storage = new GridFsStorage({ 

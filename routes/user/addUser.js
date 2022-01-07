@@ -53,8 +53,8 @@ router.post( '/addUser', function (req,res) {
             });   
         });
         
-    } catch {
-        res.status(400).json({ error: "Uups, something went wrong. Please try again" });
+    } catch (e) {
+        res.status(400).json({ error: e.message });
     }
 });
 
